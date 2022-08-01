@@ -30,7 +30,6 @@ function App() {
               </Nav>
             </Container>
         </Nav>
-        
       </div>
     </Router>
   );
