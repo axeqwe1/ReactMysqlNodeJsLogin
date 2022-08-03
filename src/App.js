@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import Login from './component/Login.component'
+import Registor from './component/Registor.component';
 function App() {
   return (
     <Router>
@@ -41,6 +42,7 @@ function App() {
               <Routes>
                 <Route exact path='/' element ={<Login/>}/>
                 <Route path='/Login' element ={<Login/>}/>
+                <Route path='/registor' element ={<Registor/>}/>
               </Routes>
             </div>
           </Col>

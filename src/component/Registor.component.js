@@ -1,14 +1,11 @@
+
 import React, {useState,useEffect} from 'react'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.css';
-import {BrowserRouter as Router , Routes, Route, Link} from 'react-router-dom'
-import axios from "axios"
-import registor from './Registor.component'
-
-function Login() {
+const Registor = () =>{
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
@@ -18,20 +15,21 @@ function Login() {
     const onChangePassword = (e) =>{
         setPassword(e.target.value);
     }
-    const onSubmit = (e) =>{
-        e.preventDefault();
-    }
-    return(
-        <div className=''>
+    return (
+        <div>
             <Container>
                 <Row className='d-flex justify-content-center p-4'>
                     <Col md="12" sm="6" className='d-flex justify-content-center flex-column align-items-center'>
-                        <p>Login page</p>
+                        <p>Registor page</p>
                         <Form className='d-flex flex-column align-items-center'>
+                            <label htmlFor="">username</label>
                             <input type="text" name="username" id="username" className='m-1' onChange={onChangeUsername} />
+                            <label htmlFor="">password</label>
                             <input type="password" name="password" id="password" className='m-1'/>
-                            <input type="submit" name="submit" id="login" value="Login" className='btn btn-primary m-1' onChange={onChangePassword}/>
-                            <a href="/registor">Registor</a>
+                            <label htmlFor="">email</label>
+                            <input type="email" name="email" id="email" className='m-1'/>
+                            <input type="submit" name="submit" id="Registor" value="Registor" className='btn btn-primary m-1' onChange={onChangePassword}/>
+                            <a href="/Login">back to login</a>
                         </Form>
                     </Col>
                 </Row>
@@ -40,4 +38,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default Registor;
