@@ -1,29 +1,31 @@
 import './App.css';
-import {BrowserRouter as Router , Switch, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router , Routes, Route, Link} from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.css'
+
+import Login from './component/Login.component'
 function App() {
   return (
     <Router>
       <div className="App">
           <Nav className="navbar navbar-dark bg-dark">
             <Container>
-            <a className='navbar-brand'>
-              <Link to ={"/"} className="nav-link">
+            
+              <Link to={"/"} className="nav-link navbar-brand">
                 Brand
               </Link>
-            </a>
+            
               <Nav className='justify-content-end'>
                 <Nav>
-                  <Link to={"/"} class="nav-link">
+                  <Link to={"/"} className="nav-link">
                         HOME
                   </Link>
                 </Nav>
                 <Nav>
-                  <Link to={"/Login"} class="nav-link">
+                  <Link to={"/Login"} className="nav-link">
                         Login
                   </Link>
                 </Nav>
@@ -31,6 +33,19 @@ function App() {
             </Container>
         </Nav>
       </div>
+
+      <Container>
+        <Row>
+          <Col md="12">
+            <div className="wrapper">
+              <Routes>
+                <Route exact path='/' element ={<Login/>}/>
+                <Route path='/Login' element ={<Login/>}/>
+              </Routes>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </Router>
   );
 }
