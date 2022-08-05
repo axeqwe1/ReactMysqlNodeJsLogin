@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import Login from './component/Login.component'
 import Registor from './component/Registor.component';
+import Home from './component/Home.component';
 function App() {
   return (
     <Router>
@@ -40,7 +41,7 @@ function App() {
           <Col md="12">
             <div className="wrapper">
               <Routes>
-                <Route exact path='/' element ={<Login/>}/>
+                <Route exact path='/' element ={<Home/>}/>
                 <Route path='/Login' element ={<Login/>}/>
                 <Route path='/registor' element ={<Registor/>}/>
               </Routes>
