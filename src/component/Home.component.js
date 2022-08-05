@@ -23,7 +23,6 @@ const Home = () => {
     }, []);
     return (
         <div>
-            {/* {JSON.stringify(data)} */}
             <h1>Read Username in database</h1>
             {
               <table>
@@ -48,18 +47,7 @@ const Home = () => {
                     })} 
               </table>
             }
-            
-        {/* {data.tests.map(item => (
-          <li key={item}>
-            <p>{item.ID}</p>
-           <p>{item.username}</p>
-           <p>{item.password}</p>
-          </li>
-        ))} */}
-        
-        
-      </div>
-    )
+        </div>
+    );
 }
-
 export default Home;
