@@ -1,29 +1,26 @@
 import React,{useEffect,useState} from 'react'
-import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.css'
 import axios from 'axios';
-
-
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
 
     const [data, setData] = useState([]);
-
+    const location = useLocation();
     useEffect(() => {
         const fetchData = async() => {
-            await axios.get('http://localhost:3000/user/read')
+            await axios.get(`http://localhost:3000/user/read/${location.state.username}`)
             .then((res) => {
-              setData(res.data)
+              setData(res.data);
+              console.log(location.state.username)
             });
     }
         fetchData()
     }, []);
     return (
         <div>
-            <h1>Read Username in database</h1>
+          {/* {JSON.stringify(data)} */}
+            <h1>Read Username in {location.state.username}</h1>
             {
               <table>
                 <thead>
@@ -44,7 +41,7 @@ const Home = () => {
                           </tr>
                         </tbody>
                       );
-                    })} 
+                  })} 
               </table>
             }
         </div>

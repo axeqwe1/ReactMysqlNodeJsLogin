@@ -41,7 +41,8 @@ function App() {
           <Col md="12">
             <div className="wrapper">
               <Routes>
-                <Route exact path='/' element ={<Home/>}/>
+                <Route exact path='/' element ={<Login/>}/>
+                <Route path='/Home/:username' element={<Home/>}/> 
                 <Route path='/Login' element ={<Login/>}/>
                 <Route path='/registor' element ={<Registor/>}/>
               </Routes>

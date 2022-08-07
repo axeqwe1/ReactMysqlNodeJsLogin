@@ -4,22 +4,45 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.css';
-import {BrowserRouter as Router , Routes, Route, Link} from 'react-router-dom'
+import { useNavigate,generatePath} from 'react-router-dom'
 import axios from "axios"
 import registor from './Registor.component'
 
-function Login() {
+function Login(props) {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
-
+    const [loading,setLoading] = useState(false);
+    const [data,setData] = useState([])
+    const navigator = useNavigate();
+    const path = generatePath('../Home/:username',{
+        username:username
+    });
     const onChangeUsername = (e) =>{
         setUsername(e.target.value);
-    }
-    const onChangePassword = (e) =>{
+        
+     }
+     const onChangePassword = (e) =>{
         setPassword(e.target.value);
-    }
-    const onSubmit = (e) =>{
-        e.preventDefault();
+        
+     }
+     const handleonSubmit = async(e) =>{
+         e.preventDefault();
+         postData()
+     }
+    const postData = async() =>{
+       const user = {
+        username:username,
+        password:password
+       }
+       axios.post('http://localhost:3000/user/signIn',user)
+       .then(res => {
+        console.log(res)
+        console.log(res.data)
+        if(res['status'] === 200 && !res.data > -1){
+            console.log('okay')
+            navigator(path, { replace: true,state:{username}});
+        }
+       })
     }
     return(
         <div className=''>
@@ -27,10 +50,10 @@ function Login() {
                 <Row className='d-flex justify-content-center p-4'>
                     <Col md="12" sm="6" className='d-flex justify-content-center flex-column align-items-center'>
                         <p>Login page</p>
-                        <Form className='d-flex flex-column align-items-center'>
+                        <Form className='d-flex flex-column align-items-center' onSubmit={handleonSubmit}>
                             <input type="text" name="username" id="username" className='m-1' onChange={onChangeUsername} />
-                            <input type="password" name="password" id="password" className='m-1'/>
-                            <input type="submit" name="submit" id="login" value="Login" className='btn btn-primary m-1' onChange={onChangePassword}/>
+                            <input type="password" name="password" id="password" className='m-1' onChange={onChangePassword}/>
+                            <input type="submit" name="submit" id="login" value="Login" className='btn btn-primary m-1'/>
                             <a href="/registor">Registor</a>
                         </Form>
                     </Col>
