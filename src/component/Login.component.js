@@ -34,14 +34,15 @@ function Login(props) {
         username:username,
         password:password
        }
-       axios.post('http://localhost:3000/user/signIn',user)
-       .then(res => {
+       await axios.post('http://localhost:3000/user/signIn',user)
+       .then((res) => {
         console.log(res)
-        console.log(res.data)
+        console.log(res.data);
         if(res['status'] === 200 && !res.data > -1){
             console.log('okay')
             navigator(path, { replace: true,state:{username}});
         }
+       }).then(() => {
        })
     }
     return(

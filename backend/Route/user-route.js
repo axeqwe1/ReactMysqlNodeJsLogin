@@ -78,7 +78,7 @@ router.delete('/delete/:username',(req,res) => {
 router.post('/signIn',(req,res) => {
   const username = req.body.username;
   const password = req.body.password;  
-  conn.query('SELECT ID FROM user WHERE username = ? and password = ?' ,[username,password],
+  conn.query('SELECT username FROM user WHERE username = ? and password = ?' ,[username,password],
   (err,result,field) => {
     try{
       if(err){
