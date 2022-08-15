@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import {useNavigate} from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
@@ -6,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import axios from 'axios'
 
 const EditUser = (props) =>{
-
+    const navigate = useNavigate();
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const [email,setEmail] = useState('');
@@ -23,7 +24,6 @@ const EditUser = (props) =>{
     const handleSubmit = (e) => {
         EditData();
     }
-
     const EditData = async() =>{
         const editdata = {
             username:username,
@@ -49,7 +49,7 @@ const EditUser = (props) =>{
                             <label>Email</label>
                             <input type="email" name="email" id="email" className='m-1' onChange={onChangeEmail}/>
                             <input type="submit" name="submit" id="submit" value="EDIT" className='btn btn-primary'/>
-                            <a href="/Home/:username">Registor</a>
+                            <a href="/Home">back</a>
                         </Form>
                     </Col>
                 </Row>

@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const express = require('express');
 const mysql = require('mysql');
 const conn = require('../db/db');
@@ -25,10 +26,10 @@ router.post("/create",(req,res) => {
     }
 })
 
-router.get('/read/:username',(req,res) => {
-  const username = req.params.username
+router.get('/read/:id',(req,res) => {
+  const id = req.params.id
     try{
-      conn.query('SELECT * FROM user WHERE username = ?',[username] ,(err, result, field) => {
+      conn.query('SELECT * FROM user WHERE ID = ?',[id] ,(err, result, field) => {
         if(err){
           console.log(err);
           return res.status(400).send();
@@ -43,7 +44,6 @@ router.get('/read/:username',(req,res) => {
 router.patch('/update/:username',(req,res) => {
    const username = req.params.username;
    const newPassword = req.params.newPassword;
-   
    try{
       conn.query('UPDATE user SET password = ? WHERE username = ?',[newPassword,username],
       (err,result,field) => {
@@ -58,9 +58,9 @@ router.patch('/update/:username',(req,res) => {
       return res.status(500).send();
    }
 })
-router.delete('/delete/:username',(req,res) => {
-  const username = req.params.username;
-  conn.query('DELETE FROM user WHERE username = ?' , [username],
+router.delete('/delete/:id',(req,res) => {
+  const id = req.params.id;
+  conn.query('DELETE FROM user WHERE ID = ?' , [id],
   (err,result,field) => {
     try{
     if(err){
@@ -78,22 +78,23 @@ router.delete('/delete/:username',(req,res) => {
 router.post('/signIn',(req,res) => {
   const username = req.body.username;
   const password = req.body.password;  
-  conn.query('SELECT username FROM user WHERE username = ? and password = ?' ,[username,password],
+  conn.query('SELECT * FROM user WHERE username = ? and password = ?' ,[username,password],
   (err,result,field) => {
     try{
       if(err){
         console.log("Fail login");
         return res.status(400).send()
       }
-      if(!result >= 0){
-      console.log("login success");
-      return res.status(200).json(result)
-    }
+      if(result.length > 0){
+        console.log("login success");
+        return res.status(200).json(result)
+      }else{
+        return res.json({Message:'Not Found User',Status:'error'})
+      }
     }catch(err){
       console.log(err)
       return res.status(500).send();
     }
-
   })
 })
     module.exports = router;

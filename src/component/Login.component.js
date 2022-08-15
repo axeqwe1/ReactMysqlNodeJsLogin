@@ -7,12 +7,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate,generatePath} from 'react-router-dom'
 import axios from "axios"
 import registor from './Registor.component'
+import swal from 'sweetalert'
 
 function Login(props) {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [loading,setLoading] = useState(false);
-    const [data,setData] = useState([])
     const navigator = useNavigate();
     const path = generatePath('../Home/:username',{
         username:username
@@ -34,13 +34,27 @@ function Login(props) {
         username:username,
         password:password
        }
+       if(user.username == null){
+        console.log('username null')
+       }
        await axios.post('http://localhost:3000/user/signIn',user)
        .then((res) => {
-        console.log(res)
+        
         console.log(res.data);
-        if(res['status'] === 200 && !res.data > -1){
-            console.log('okay')
-            navigator(path, { replace: true,state:{username}});
+        if(res.data.length > 0){
+            const data_id = res.data.map(item => {
+                return item.ID
+            });
+            swal("Success", "LOGIN SUCCESSFULLY", "success", {
+                buttons: false,
+                timer: 2000,
+              })
+            navigator(path, { replace: true,state:{username,data_id}});
+        }else{
+            swal("Not Found User", res.data['Message'], "error", {
+                buttons: false,
+                timer: 2000,
+              })
         }
        }).then(() => {
        })
