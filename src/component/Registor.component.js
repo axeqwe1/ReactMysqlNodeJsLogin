@@ -18,7 +18,7 @@ const Registor = () =>{
             password:password,
             email:email
         }
-        await axios.post('http://localhost:3000/user/create',registor)
+        await axios.post('http://localhost:4000/user/create',registor)
         .then((res) => {
             console.log(res)
             console.log(res.data)
@@ -47,7 +47,6 @@ const Registor = () =>{
         e.preventDefault();
         addData();
     }
-    
     return (
         <div>
             <Container>

@@ -29,7 +29,7 @@ router.post("/create",(req,res) => {
 router.get('/read/:id',(req,res) => {
   const id = req.params.id
     try{
-      conn.query('SELECT * FROM user WHERE ID = ?',[id] ,(err, result, field) => {
+      conn.query('SELECT * FROM user WHERE iduser = ?',[id] ,(err, result, field) => {
         if(err){
           console.log(err);
           return res.status(400).send();
@@ -41,9 +41,11 @@ router.get('/read/:id',(req,res) => {
       return res.status(500).send();
     }
 })
-router.patch('/update/:username',(req,res) => {
-   const username = req.params.username;
-   const newPassword = req.params.newPassword;
+router.put('/update',(req,res) => {
+   const username = req.body.username;
+   const newPassword = req.body.newPassword;
+   console.log(username);
+   console.log(newPassword);
    try{
       conn.query('UPDATE user SET password = ? WHERE username = ?',[newPassword,username],
       (err,result,field) => {
@@ -51,7 +53,7 @@ router.patch('/update/:username',(req,res) => {
           console.log(err)
           return res.status(400).send()
         } 
-        return res.status(200).json({Message:'update successfully'})
+        return res.status(200).json({Message:'Test'})
       })
    }catch(err){
       console.log(err);
@@ -60,7 +62,7 @@ router.patch('/update/:username',(req,res) => {
 })
 router.delete('/delete/:id',(req,res) => {
   const id = req.params.id;
-  conn.query('DELETE FROM user WHERE ID = ?' , [id],
+  conn.query('DELETE FROM user WHERE iduser = ?' , [id],
   (err,result,field) => {
     try{
     if(err){

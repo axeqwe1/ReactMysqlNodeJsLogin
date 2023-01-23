@@ -37,13 +37,13 @@ function Login(props) {
        if(user.username == null){
         console.log('username null')
        }
-       await axios.post('http://localhost:3000/user/signIn',user)
+       await axios.post('http://localhost:4000/user/signIn',user)
        .then((res) => {
         
         console.log(res.data);
         if(res.data.length > 0){
             const data_id = res.data.map(item => {
-                return item.ID
+                return item.iduser
             });
             swal("Success", "LOGIN SUCCESSFULLY", "success", {
                 buttons: false,
